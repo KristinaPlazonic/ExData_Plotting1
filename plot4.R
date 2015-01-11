@@ -1,0 +1,61 @@
+## plotting multiple plots on the same plot
+
+df <- read.csv("household_power_consumption.txt", sep = ";", 
+               na.strings = c("?"), stringsAsFactors=FALSE)
+
+## take the subset of the data - 
+## I spent so much time on it because I assumed it would be 01/02/2007
+good1 <- df$Date == "1/2/2007" | df$Date == "2/2/2007"
+df <- df [good1,]
+
+
+#mydf = df[0:10, ]  # testing a small dataset
+# I got this from a Stack Overflow post which I can't chase down now... 
+
+#df$MyDate <- strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%OS")
+
+
+
+png("plot4.png", width = 480, height = 480) #setting up the graphic device
+
+par(mfcol = c(2,2))  # the plot will be 2x2, arranged by columns
+
+# subplot 1 is the same as plot 2, so I copy over
+with(df, {
+  plot(MyDate, Global_active_power, type = "n",
+       xlab = "",
+       ylab = "Global active power (kilowatts)")
+  lines(MyDate, Global_active_power)
+})
+
+# subplot 2 is the same as plot 3
+with(df, {
+  plot(MyDate, Sub_metering_1 , type = "n",
+       xlab = "",
+       ylab = "Energy submetering")
+  lines(MyDate, Sub_metering_1, col = "black")
+  lines(MyDate, Sub_metering_2, col = "red")
+  lines(MyDate, Sub_metering_3, col = "blue")
+  legend("topright", 
+         c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
+         col = c("black", "red", "blue"), 
+         lty = c(1,1)
+  )  
+})
+
+with(df, {
+  plot(MyDate, Voltage , type = "n",
+       xlab = "datetime",
+       ylab = "Voltage")
+  lines(MyDate, Voltage)    
+})
+
+with(df, {
+  plot(MyDate, Global_active_power, type = "n", 
+       xlab = "datetime", 
+       ylab = "Global_reactive_power")  # note the col name is different from label
+  lines(MyDate, Global_active_power)    
+})
+
+
+dev.off()
