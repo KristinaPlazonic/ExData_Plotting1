@@ -39,7 +39,8 @@ with(df, {
   legend("topright", 
          c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), 
          col = c("black", "red", "blue"), 
-         lty = c(1,1)
+         lty = c(1,1), 
+         bty = "n"
   )  
 })
 
@@ -51,10 +52,10 @@ with(df, {
 })
 
 with(df, {
-  plot(MyDate, Global_active_power, type = "n", 
+  plot(MyDate, Global_reactive_power, type = "n", 
        xlab = "datetime", 
-       ylab = "Global_reactive_power")  # note the col name is different from label
-  lines(MyDate, Global_active_power)    
+       ylab = "Global_reactive_power")  
+  lines(MyDate, Global_reactive_power)    
 })
 
 
