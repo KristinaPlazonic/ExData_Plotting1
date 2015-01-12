@@ -12,7 +12,7 @@ df <- df [good1,]
 #mydf = df[0:10, ]  # testing a small dataset
 # I got this from a Stack Overflow post which I can't chase down now... 
 
-#df$MyDate <- strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%OS")
+df$MyDate <- strptime(paste(df$Date, df$Time), "%d/%m/%Y %H:%M:%OS")
 
 
 
